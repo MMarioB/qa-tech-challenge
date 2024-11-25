@@ -6,6 +6,7 @@
   "author": "MMarioB <mmariob196@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
     "cypress": "^13.16.0"
   }
 }
