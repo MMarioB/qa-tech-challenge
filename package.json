@@ -1,12 +1,28 @@
 {
   "name": "qa-tech-challenge",
   "version": "1.0.0",
-  "main": "index.js",
-  "repository": "https://github.com/MMarioB/qa-tech-challenge.git",
-  "author": "MMarioB <mmariob196@gmail.com>",
-  "license": "MIT",
+  "description": "Cypress Cucumber Tests for Swag Labs",
+  "scripts": {
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:run:chrome": "cypress run --browser chrome",
+    "cypress:run:firefox": "cypress run --browser firefox"
+  },
+  "keywords": ["cypress", "cucumber", "e2e", "testing"],
+  "author": "Your Name",
+  "license": "ISC",
   "devDependencies": {
-    "@badeball/cypress-cucumber-preprocessor": "^21.0.3",
-    "cypress": "^13.16.0"
+    "@badeball/cypress-cucumber-preprocessor": "^18.0.6",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.0",
+    "cypress": "^13.3.0",
+    "esbuild": "^0.19.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "stepDefinitions": [
+      "cypress/e2e/step_definitions/*.js"
+    ],
+    "features": [
+      "cypress/e2e/features/*.feature"
+    ]
   }
 }
