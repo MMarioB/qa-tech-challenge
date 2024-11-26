@@ -194,6 +194,46 @@ As a **Swag Labs admin**, I need to be able to log in and log out from the platf
   - The page loading may experience delays due to the performance glitch, but ultimately, it should load.
   - After logout, the user is redirected to the login page.
 
+# User Story 2: Product Details View for Standard User
+
+## User Story
+As a Swag Labs standard_user, I need to open the products detail page in the Swag Labs ordering platform so that get more information about the products
+
+## Acceptance Criteria Mapping
+
+### 1. Log in to Swag Labs
+**Test Implementation:**
+- Feature File: `login.feature`
+- Step Definition: `LoginPage.login('standard_user', 'secret_sauce')`
+- Verification:
+  - Successful authentication
+  - Redirect to Products page
+  - User session established
+
+### 2. Navigate in the Products Page
+**Test Implementation:**
+- Feature File: `product-details.feature`
+- Page Object: `ProductsPage`
+- Verification Steps:
+  - Products list is visible
+  - Page title shows "Products"
+  - Product tiles are displayed
+  - Able to interact with product items
+
+### 3. Access Products Details View
+**Test Implementation:**
+- Feature File: `product-details.feature`
+- Page Object: `ProductDetailsPage`
+- Verification Steps:
+  - Click on product name/image
+  - Navigate to detailed product view
+  - URL changes to `/inventory-item.html`
+  - Display product-specific information
+    - Product name
+    - Product description
+    - Product price
+    - Product image
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
