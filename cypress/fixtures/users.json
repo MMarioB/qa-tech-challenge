@@ -1,0 +1,26 @@
+{
+    "standard_user": {
+      "username": "standard_user",
+      "password": "secret_sauce",
+      "type": "Standard User",
+      "canLogin": true
+    },
+    "locked_out_user": {
+      "username": "locked_out_user",
+      "password": "secret_sauce",
+      "type": "Locked Out User", 
+      "canLogin": false
+    },
+    "problem_user": {
+      "username": "problem_user",
+      "password": "secret_sauce",
+      "type": "Problem User",
+      "canLogin": true
+    },
+    "performance_glitch_user": {
+      "username": "performance_glitch_user",
+      "password": "secret_sauce",
+      "type": "Performance Glitch User",
+      "canLogin": true
+    }
+  }
