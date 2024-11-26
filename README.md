@@ -197,8 +197,215 @@ As a **Swag Labs admin**, I need to be able to log in and log out from the platf
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
+  ### Prerequisites
+  - Node.js installed
+  - Yarn installed
+
+  ### Install Dependencies
+  ```bash
+  yarn install
+  ```
+
+  ### Run Tests
+
+  #### Run All Login Tests
+  ```bash
+  npx cypress run --spec "cypress/e2e/**/*.feature"
+  ```
+
+
+  ### Open Cypress Test Runner
+  ```bash
+  yarn cypress:open
+  ```
+
 # Git Commands
 Section to add the git commands used during the challenge
+# Git Commands Reference
+
+## Basic Git Workflow
+
+### Cloning the Repository
+```bash
+git clone [repository-url]
+```
+
+### Creating a New Branch
+```bash
+git checkout -b feature/branch-name
+```
+
+### Checking Branch Status
+```bash
+git status
+```
+
+### Adding Changes
+```bash
+# Add specific files
+git add filename.js
+
+# Add all changed files
+git add .
+```
+
+### Committing Changes
+```bash
+# Commit with a descriptive message
+git commit -m "Description of changes"
+```
+
+### Pushing Changes
+```bash
+# Push to current branch
+git push origin HEAD
+
+# Push to a specific branch
+git push origin feature/branch-name
+```
+
+### Pulling Latest Changes
+```bash
+# Pull from current branch
+git pull origin
+
+# Pull from a specific branch
+git pull origin main
+```
+
+## Branch Management
+
+### List Branches
+```bash
+# Local branches
+git branch
+
+# All branches (local and remote)
+git branch -a
+```
+
+### Switch Branches
+```bash
+git checkout branch-name
+```
+
+### Create and Switch to New Branch
+```bash
+git checkout -b new-branch-name
+```
+
+## Merging and Updating
+
+### Merge Branches
+```bash
+# Merge another branch into current branch
+git merge branch-name
+```
+
+### Fetch Latest Changes
+```bash
+git fetch origin
+```
+
+## Resolving Conflicts
+
+### Discard Local Changes
+```bash
+# Discard changes in a specific file
+git checkout -- filename.js
+
+# Discard all local changes
+git reset --hard HEAD
+```
+
+## Advanced Operations
+
+### View Commit History
+```bash
+# Basic log
+git log
+
+# Detailed log with changes
+git log -p
+
+# Oneline log
+git log --oneline
+```
+
+### Stash Changes
+```bash
+# Stash current changes
+git stash
+
+# Apply last stashed changes
+git stash pop
+```
 
 # Problems
 Section to write down problems you have encountered during the challenge
+# Authentication Login Problems
+
+## Common Login Issues in Swag Labs
+
+### 1. Locked Out User Scenario
+**Problem:** Some users encounter complete login lockout
+- Specific user: `locked_out_user`
+- Symptom: Unable to authenticate despite correct credentials
+- Potential Causes:
+  - Account intentionally disabled
+  - Security mechanism preventing access
+  - Repeated failed login attempts
+
+### 2. Performance Glitch during Authentication
+**Problem:** Significant delay in login process
+- Specific user: `performance_glitch_user`
+- Symptoms:
+  - Extended loading times
+  - Potential timeout errors
+  - Slow page rendering after login
+
+### 3. Problem User Authentication Inconsistencies
+**Problem:** Unexpected behavior during login
+- Specific user: `problem_user`
+- Potential Issues:
+  - Intermittent login success/failure
+  - Unexpected UI rendering
+  - Potential data inconsistencies post-login
+
+### 4. Standard Authentication Challenges
+**Problem:** Potential standard login complications
+- User: `standard_user`
+- Possible Scenarios:
+  - Credential validation errors
+  - Session management issues
+  - Browser compatibility problems
+
+## Recommended Troubleshooting Steps
+
+### Credential Verification
+- Double-check username and password
+- Ensure no hidden whitespace characters
+- Verify case sensitivity
+
+### Network and Environment Checks
+- Confirm stable internet connection
+- Clear browser cache and cookies
+- Test login across different browsers
+- Verify no network restrictions
+
+### Error Handling Strategies
+- Implement robust error logging
+- Create comprehensive error messages
+- Design fallback authentication mechanisms
+
+## Potential Root Causes
+- Backend authentication service instability
+- Misconfigured user role permissions
+- Caching mechanisms interfering with login process
+- Browser-specific rendering issues
+
+## Mitigation Recommendations
+- Implement comprehensive error handling
+- Create detailed login failure logs
+- Design user-friendly error messages
+- Develop retry mechanisms for intermittent failures
