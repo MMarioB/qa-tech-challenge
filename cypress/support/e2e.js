@@ -1,6 +1,7 @@
 // Import custom commands
 import './commands/loginCommands';
 import './commands/uiCommands';
+import './commands/productDetailsCommands';
 
 // Global configurations and setup
 beforeEach(() => {
