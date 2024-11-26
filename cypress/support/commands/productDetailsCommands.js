@@ -1,7 +1,7 @@
 describe('Swag Labs Product Details', () => {
     beforeEach(() => {
       // Login before each test
-      cy.login('standard_user', 'secret_sauce')
+      cy.loginByUserType('standard_user')
     })
   
     it('should navigate to product details page', () => {

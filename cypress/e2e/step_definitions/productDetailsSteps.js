@@ -1,7 +1,7 @@
-import { Given, When, Then } from 'cypress-cucumber-preprocessor/steps'
-import LoginPage from '../pages/LoginPage'
-import ProductsPage from '../pages/ProductsPage'
-import ProductDetailsPage from '../pages/ProductDetailsPage'
+import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
+import LoginPage from '../../support/pages/LoginPage'
+import ProductsPage from '../../support/pages/ProductPage'
+import ProductDetailsPage from '../../support/pages/ProductDetailsPage'
 
 const loginPage = new LoginPage()
 const productsPage = new ProductsPage()
