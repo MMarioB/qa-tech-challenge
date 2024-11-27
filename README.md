@@ -199,8 +199,6 @@ As a **Swag Labs admin**, I need to be able to log in and log out from the platf
 ## User Story
 As a Swag Labs standard_user, I need to open the products detail page in the Swag Labs ordering platform so that get more information about the products
 
-## Acceptance Criteria Mapping
-
 ### 1. Log in to Swag Labs
 **Test Implementation:**
 - Feature File: `login.feature`
@@ -233,6 +231,64 @@ As a Swag Labs standard_user, I need to open the products detail page in the Swa
     - Product description
     - Product price
     - Product image
+
+# User Story 3: Add Products to Cart
+
+### Description:
+As a **Swag Labs standard_user**, I need to add products to cart in the Swag Labs ordering platform so that I can buy them.
+
+### Acceptance Criteria:
+1. Ensure Swag Labs standard_user is able to:
+   - Log in to Swag Labs
+   - Navigate to the Products page
+   - Add product(s) to cart from the Products page
+   - Navigate to individual Product details page
+   - Add product(s) to cart from the Product details page
+
+# Swag Labs Cypress Testing Project
+
+## Test Cases
+
+### Login Scenarios
+1. Successful login with standard user
+   - Input valid username and password
+   - Verify redirect to Products page
+2. Failed login attempts
+   - Attempt login with invalid credentials
+   - Verify error message display
+
+### Products Page Test Cases
+1. Product Listing Verification
+   - Verify all products are displayed
+   - Check product details (name, price, image)
+
+2. Add to Cart Functionality
+   - Add single product to cart
+   - Add multiple products to cart
+   - Verify cart icon updates correctly
+   - Confirm products added match selection
+
+### Product Details Page Test Cases
+1. Navigation
+   - Click on product to view details
+   - Verify correct product details displayed
+   - Check "Back to Products" functionality
+
+2. Add to Cart from Details Page
+   - Add product to cart from details view
+   - Verify cart icon updates
+   - Check correct product added
+
+### Cart Interaction Test Cases
+1. Cart Contents
+   - Verify correct products in cart
+   - Check product quantities
+   - Validate cart icon shows correct item count
+
+2. Remove Products
+   - Remove single product from cart
+   - Remove multiple products
+   - Verify cart updates correctly
 
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added

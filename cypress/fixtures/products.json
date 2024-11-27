@@ -1,0 +1,25 @@
+{
+    "products": [
+      {
+        "id": "sauce-labs-backpack",
+        "name": "Sauce Labs Backpack",
+        "description": "Carry essentials with our durable carry-all backpack",
+        "price": 29.99,
+        "category": "Backpacks"
+      },
+      {
+        "id": "sauce-labs-bike-light",
+        "name": "Sauce Labs Bike Light",
+        "description": "A great light for your bike to stay visible during night rides",
+        "price": 9.99,
+        "category": "Accessories"
+      },
+      {
+        "id": "sauce-labs-bolt-t-shirt",
+        "name": "Sauce Labs Bolt T-Shirt",
+        "description": "Get the perfect shirt to show your Sauce Labs spirit",
+        "price": 15.99,
+        "category": "Apparel"
+      }
+    ]
+  }
