@@ -1,10 +1,10 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
 import LoginPage from '../../support/pages/LoginPage'
-import ProductsPage from '../../support/pages/ProductPage'
+import ProductPage from '../../support/pages/ProductPage'
 import ProductDetailsPage from '../../support/pages/ProductDetailsPage'
 
 const loginPage = new LoginPage()
-const productsPage = new ProductsPage()
+const productPage = new ProductPage()
 const productDetailsPage = new ProductDetailsPage()
 
 Given('I am logged in as a standard user', () => {
@@ -13,11 +13,11 @@ Given('I am logged in as a standard user', () => {
 })
 
 When('I navigate to the Products page', () => {
-  productsPage.verifyProductsPageIsVisible()
+  productPage.verifyProductsPageIsVisible()
 })
 
 When('I select a product', () => {
-  productsPage.selectFirstProduct()
+  productPage.selectFirstProduct()
 })
 
 Then('I should see the product details page', () => {
