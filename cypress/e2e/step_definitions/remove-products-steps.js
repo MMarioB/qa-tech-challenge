@@ -1,8 +1,8 @@
 import { Given, When, Then } from '@badeball/cypress-cucumber-preprocessor';
-import LoginPage from '../pages/LoginPage';
-import ProductsPage from '../pages/ProductsPage';
-import ProductDetailsPage from '../pages/ProductDetailsPage';
-import CartPage from '../pages/CartPage';
+import LoginPage from '../../support/pages/LoginPage';
+import ProductPage from '../../support/pages/ProductPage';
+import ProductDetailsPage from '../../support/pages/ProductDetailsPage';
+import CartPage from '../../support/pages/CartPage';
 
 Given('I am logged in as a standard user', () => {
     LoginPage.visit();
@@ -11,26 +11,26 @@ Given('I am logged in as a standard user', () => {
 });
 
 When('I add a single product to the cart', () => {
-    ProductsPage.addProductToCart(0);
+    ProductPage.addProductToCart(0);
 });
 
 When('I add multiple products to the cart', () => {
-    ProductsPage.addProductToCart(0);
-    ProductsPage.addProductToCart(1);
-    ProductsPage.addProductToCart(2);
+    ProductPage.addProductToCart(0);
+    ProductPage.addProductToCart(1);
+    ProductPage.addProductToCart(2);
 });
 
 When('I remove the product from the Products page', () => {
-    ProductsPage.removeProductFromCart(0);
+    ProductPage.removeProductFromCart(0);
 });
 
 When('I remove some products from the Products page', () => {
-    ProductsPage.removeProductFromCart(0);
-    ProductsPage.removeProductFromCart(1);
+    ProductPage.removeProductFromCart(0);
+    ProductPage.removeProductFromCart(1);
 });
 
 When('I navigate to a product details page', () => {
-    ProductsPage.navigateToProductDetails(0);
+    ProductPage.navigateToProductDetails(0);
 });
 
 When('I add the product to the cart', () => {
@@ -42,7 +42,7 @@ When('I remove the product from the Product Details page', () => {
 });
 
 When('I navigate to the Shopping Cart', () => {
-    ProductsPage.navigateToCart();
+    ProductPage.navigateToCart();
 });
 
 When('I remove a single product from the Shopping Cart', () => {
@@ -54,19 +54,19 @@ When('I remove all products from the Shopping Cart', () => {
 });
 
 Then('the cart badge should not exist', () => {
-    ProductsPage.verifyCartBadgeNotExists();
+    ProductPage.verifyCartBadgeNotExists();
 });
 
 Then('the product should be removed from the cart', () => {
-    ProductsPage.verifyProductNotInCart();
+    ProductPage.verifyProductNotInCart();
 });
 
 Then('the cart badge should reflect the correct number of remaining products', () => {
-    ProductsPage.verifyCartBadgeCount();
+    ProductPage.verifyCartBadgeCount();
 });
 
 Then('the removed products should not be in the cart', () => {
-    ProductsPage.verifyRemovedProductsNotInCart();
+    ProductPage.verifyRemovedProductsNotInCart();
 });
 
 Then('the Shopping Cart should be empty', () => {
