@@ -290,6 +290,67 @@ As a **Swag Labs standard_user**, I need to add products to cart in the Swag Lab
    - Remove multiple products
    - Verify cart updates correctly
 
+# User Story 4: Remove Products from Cart
+
+### Description:
+As a **Swag Labs standard_user**, I need to review and remove previously added products in the Swag Labs ordering platform.
+
+### Acceptance Criteria:
+1. Ensure Swag Labs standard_user is able to:
+   - Log in to Swag Labs
+   - Navigate to the Products page
+   - Add product(s) to cart
+   - Remove product(s) from the Products page
+   - Navigate to individual Product details page
+   - Remove product(s) from the Product details page
+   - Navigate to the Shopping Cart
+   - Remove product(s) from the Shopping Cart
+
+## Test Cases
+
+### Products Page Test Scenarios
+1. **Product Removal Functionality**
+   - Verify "Remove" button works for single product
+   - Verify "Remove" button works for multiple products
+   - Confirm cart icon updates immediately after product removal
+   - Validate removed product disappears from Products page
+
+2. **Cart Interaction Scenarios**
+   - Add multiple products to cart
+   - Remove subset of added products
+   - Verify remaining products stay in cart
+   - Check cart badge reflects correct item count
+
+### Product Details Page Test Scenarios
+1. **Product Details Removal**
+   - Navigate to product details page
+   - Add product to cart from details page
+   - Remove product from details page
+   - Verify cart icon updates correctly
+
+2. **Navigation and Removal**
+   - Verify return to Products page after removal
+   - Confirm product removal does not affect other cart items
+
+### Shopping Cart Test Scenarios
+1. **Cart Management**
+   - Navigate to Shopping Cart
+   - Remove single product from cart
+   - Remove multiple products from cart
+   - Verify total price updates after removal
+   - Confirm empty cart state
+
+2. **Edge Cases**
+   - Attempt to remove product from empty cart
+   - Verify behavior after removing all products
+   - Check cart continues to function after complete product removal
+
+### Error Handling
+1. **Cart Removal Scenarios**
+   - Verify no errors occur during product removal
+   - Validate consistent UI state after removal
+   - Ensure smooth transition between cart states
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
