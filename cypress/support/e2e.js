@@ -3,6 +3,7 @@ import './commands/loginCommands';
 import './commands/uiCommands';
 import './commands/productDetailsCommands';
 import './commands/addToCartCommands';
+import './commands/productSortingCommands';
 
 // Global configurations and setup
 beforeEach(() => {
