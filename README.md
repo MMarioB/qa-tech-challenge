@@ -409,6 +409,70 @@ Testing the ability of a standard_user to sort products in different ways on the
   - **Expected Result**: Products are displayed in descending price order
   - **Verification**: Compare product prices to ensure descending numerical order
 
+## User Story 6
+As a Swag Labs standard_user, I need to reset the app status in the Swag Labs ordering platform so that I can reset the app to its initial settings
+
+## Acceptance Criterias 6
+Ensure the Swag Labs standard_user are able to:
+1. Log in to Swag Labs
+2. Navigate in the menu page
+3. Able to reset app state
+
+# Test Cases
+
+## App Reset Functionality
+Testing the ability of a standard_user to reset the application state in the Swag Labs platform.
+
+### Test Scenarios
+
+#### 1. Access Reset Functionality
+**Objective**: Verify user can access the reset functionality through the menu
+- **Precondition**: User is logged in
+- **Steps**:
+  1. Click on the burger menu button
+  2. Verify menu opens successfully
+  3. Verify "Reset App State" option is visible
+- **Expected Result**: Reset option is accessible in the menu
+
+#### 2. Reset App State
+**Objective**: Verify complete app state reset functionality
+- **Precondition**: 
+  - User is logged in
+  - At least one item is in the cart
+  - Some items have "Remove" button showing
+- **Test Cases**:
+
+  2.1 Full Reset Verification
+  - **Steps**:
+    1. Click burger menu button
+    2. Click "Reset App State"
+    3. Verify cart is empty
+    4. Verify all items show "Add to Cart"
+    5. Verify menu closes automatically
+  - **Expected Result**: All application state returns to default
+
+  2.2 Cart Status After Reset
+  - **Steps**:
+    1. Add items to cart
+    2. Perform reset
+    3. Check cart badge
+  - **Expected Result**: Cart badge should disappear
+
+  2.3 Product Buttons After Reset
+  - **Steps**:
+    1. Add several items to cart
+    2. Perform reset
+    3. Check all product buttons
+  - **Expected Result**: All products should show "Add to Cart" button
+
+#### 3. Reset Persistence
+**Objective**: Verify reset changes persist
+- **Steps**:
+  1. Perform reset
+  2. Refresh page
+  3. Verify reset state maintains
+- **Expected Result**: Reset changes should persist after page refresh
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
