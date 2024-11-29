@@ -351,6 +351,64 @@ As a **Swag Labs standard_user**, I need to review and remove previously added p
    - Validate consistent UI state after removal
    - Ensure smooth transition between cart states
 
+## User Story 5
+As a Swag Labs standard_user, I need to sort products in the Swag Labs ordering platform so that I can find what I'm looking for easily
+
+## Acceptance Criterias 5
+Ensure the Swag Labs standard_user are able to:
+1. Log in to Swag Labs
+2. Navigate in the Products page
+3. Able to sort product(s) in different ways
+
+# Test Cases
+
+## Product Sorting Functionality
+Testing the ability of a standard_user to sort products in different ways on the Swag Labs platform.
+
+### Test Scenarios
+
+#### 1. Login Authentication
+**Objective**: Verify successful login with standard_user credentials
+- **Precondition**: User is on the login page
+- **Steps**:
+  1. Enter username "standard_user"
+  2. Enter password "secret_sauce"
+  3. Click login button
+- **Expected Result**: User is successfully redirected to the Products page
+
+#### 2. Product Sorting Options
+**Objective**: Verify all sorting options work correctly
+- **Precondition**: User is logged in and on the Products page
+- **Test Cases**:
+
+  2.1 Sort by Name (A to Z)
+  - **Steps**:
+    1. Click on sort dropdown
+    2. Select "Name (A to Z)"
+  - **Expected Result**: Products are displayed in alphabetical order (A to Z)
+  - **Verification**: Compare product names to ensure ascending alphabetical order
+
+  2.2 Sort by Name (Z to A)
+  - **Steps**:
+    1. Click on sort dropdown
+    2. Select "Name (Z to A)"
+  - **Expected Result**: Products are displayed in reverse alphabetical order (Z to A)
+  - **Verification**: Compare product names to ensure descending alphabetical order
+
+  2.3 Sort by Price (low to high)
+  - **Steps**:
+    1. Click on sort dropdown
+    2. Select "Price (low to high)"
+  - **Expected Result**: Products are displayed in ascending price order
+  - **Verification**: Compare product prices to ensure ascending numerical order
+
+  2.4 Sort by Price (high to low)
+  - **Steps**:
+    1. Click on sort dropdown
+    2. Select "Price (high to low)"
+  - **Expected Result**: Products are displayed in descending price order
+  - **Verification**: Compare product prices to ensure descending numerical order
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
