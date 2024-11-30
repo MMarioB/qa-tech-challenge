@@ -567,6 +567,102 @@ Testing the ability of a standard_user to view product information in both the P
     3. Confirm image positioning
   - **Expected Result**: Images should scale appropriately while maintaining quality
 
+## User Story 8
+As a Swag Labs standard_user, I need to see the shopping cart with the number of products added in the Swag Labs ordering platform so that I can to know the status of the same
+
+## Acceptance Criterias 8
+Ensure the Swag Labs standard_user are able to:
+1. Log in to Swag Labs
+2. Navigate in the Products page
+3. Able to see the shopping cart with the number of products added
+4. Navigate into the Products details page
+5. Able to see the shopping cart with the number of products added
+6. Navigate into the shopping cart
+7. Able to see the shopping cart with the number of products added
+
+# Test Cases
+
+## Product Information Display Functionality
+Testing the ability of a standard_user to view product information in both the Products page and Product Details page of the Swag Labs platform.
+
+### Test Scenarios
+
+#### 1. Products Page Information Display
+**Objective**: Verify standard_user can view all product information on the main Products page
+- **Precondition**: User is successfully logged in
+- **Steps**:
+  1. Log in with standard_user credentials
+  2. Verify redirect to Products page
+  3. Verify presence of all product elements
+  4. Check product information completeness
+- **Expected Result**: All product information is visible and complete on Products page
+
+#### 2. Product Information Completeness
+**Objective**: Verify all required product information is displayed correctly
+- **Precondition**: User is on Products page
+- **Test Cases**:
+
+  2.1 Product Image Verification
+  - **Steps**:
+    1. Check each product image is visible
+    2. Verify images load properly
+    3. Confirm image quality is acceptable
+  - **Expected Result**: All product images are properly displayed
+
+  2.2 Product Text Information
+  - **Steps**:
+    1. Verify product titles are visible
+    2. Check product descriptions are readable
+    3. Confirm price displays with currency symbol
+  - **Expected Result**: All text information is clear and properly formatted
+
+#### 3. Product Details Page Navigation
+**Objective**: Verify navigation and information display in Product Details page
+- **Precondition**: User is on Products page
+- **Test Cases**:
+
+  3.1 Details Page Navigation
+  - **Steps**:
+    1. Click on a product title
+    2. Verify navigation to details page
+    3. Check URL changes appropriately
+  - **Expected Result**: Successful navigation to Product Details page
+
+  3.2 Details Page Information
+  - **Steps**:
+    1. Verify detailed product image
+    2. Check product title presence
+    3. Verify complete description
+    4. Confirm price accuracy
+  - **Expected Result**: All product details are displayed correctly
+
+#### 4. Information Consistency
+**Objective**: Verify product information consistency across pages
+- **Steps**:
+  1. Note product information on Products page
+  2. Navigate to Product Details page
+  3. Compare information between pages
+  4. Check for any discrepancies
+- **Expected Result**: Product information should be consistent between list and detail views
+
+#### 5. UI/UX Verification
+**Objective**: Verify product information display on different devices
+- **Test Cases**:
+
+  5.1 Responsive Design
+  - **Steps**:
+    1. Check display on desktop view
+    2. Verify mobile view rendering
+    3. Test tablet view display
+  - **Expected Result**: Product information should be readable on all devices
+
+  5.2 Image Scaling
+  - **Steps**:
+    1. Verify image scaling on different screens
+    2. Check image quality after scaling
+    3. Confirm image positioning
+  - **Expected Result**: Images should scale appropriately while maintaining quality
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
