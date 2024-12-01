@@ -2,14 +2,6 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 let productInfo = {};
 
-// Background steps
-Given("I am loggd in as a standard user", () => {
-  cy.visit("/");
-  cy.get('[data-test="username"]').type("standard_user");
-  cy.get('[data-test="password"]').type("secret_sauce");
-  cy.get('[data-test="login-button"]').click();
-});
-
 // Empty cart verification
 Then("I should see an empty cart message", () => {
   cy.get(".cart_item").should("not.exist");
@@ -33,6 +25,13 @@ When("I add a product to the cart", () => {
     cy.get(".inventory_item_price").invoke("text").then((text) => {
       productInfo.price = text;
     });
+    cy.get('[data-test^="add-to-cart"]').click();
+  });
+});
+
+// Add the missing step
+Given("I have added a product to the cart", () => {
+  cy.get(".inventory_item").first().within(() => {
     cy.get('[data-test^="add-to-cart"]').click();
   });
 });
