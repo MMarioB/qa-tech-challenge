@@ -10,3 +10,10 @@ Cypress.Commands.add('clearSession', () => {
     cy.get('#password').clear().type(password);
     cy.get('#login-button').click();
   });
+
+  Cypress.Commands.add('loginAsStandardUser', () => {
+    cy.visit('/');
+    cy.get('#user-name').type('standard_user');
+    cy.get('#password').type('secret_sauce');
+    cy.get('#login-button').click();
+  });
