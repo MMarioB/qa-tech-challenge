@@ -1,29 +1,30 @@
 Feature: Add Products to Cart
-  As a Swag Labs standard user
-  I want to add products to the cart
-  So that I can prepare for purchasing items
+  As a standard user
+  I want to add and remove products from my cart
+  So that I can manage my purchase items
 
   Background:
-    Given I am logged in as a standard user
-    And I am on the Products page
+    Given the user opens Swag Labs
+    And the user performs login
 
   Scenario: Add single product to cart from Products page
-    When I add "Sauce Labs Backpack" to the cart
-    Then the cart should show "1" item
-    And the "Sauce Labs Backpack" product should be marked as added
+    When the user adds the first product to cart
+    Then the cart badge displays "1"
+    And the product button displays "Remove"
 
   Scenario: Add multiple products to cart
-    When I add the following products to cart:
-      | Sauce Labs Backpack |
-      | Sauce Labs Bike Light |
-    Then the cart should show "2" items
+    When the user adds "3" products to cart
+    Then the cart badge displays "3"
+    And selected products display "Remove"
 
   Scenario: Add product from Product Details page
-    When I navigate to the details page for "Sauce Labs Backpack"
-    And I add the product to cart from the details page
-    Then the cart should show "1" item
+    When the user clicks on first inventory item
+    And the user clicks add to cart on details page
+    Then the cart badge displays "1"
+    And the remove button should be visible on details page
 
   Scenario: Remove product from cart
-    When I add "Sauce Labs Backpack" to the cart
-    And I remove "Sauce Labs Backpack" from the cart
-    Then the cart should show "0" items
+    When the user adds the first product to cart
+    And the user removes the product
+    Then the cart badge is not visible
+    And the product button displays "Add to cart"
