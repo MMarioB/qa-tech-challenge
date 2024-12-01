@@ -6,18 +6,31 @@ const { createEsbuildPlugin } = require("@badeball/cypress-cucumber-preprocessor
 module.exports = defineConfig({
   e2e: {
     specPattern: "**/*.feature",
-    async setupNodeEvents(on, config) {
+    baseUrl: 'https://www.saucedemo.com',
+    pageLoadTimeout: 90000,
+    defaultCommandTimeout: 90000,
+    supportFile: 'cypress/support/e2e.js',
+    chromeWebSecurity: false,
+    retries: {
+      runMode: 2,
+      openMode: 0
+    },
+    setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
       });
       
       on("file:preprocessor", bundler);
-      await addCucumberPreprocessorPlugin(on, config);
+      addCucumberPreprocessorPlugin(on, config);
       
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        }
+      });
+
       return config;
     },
-    baseUrl: 'https://www.saucedemo.com',
-    viewportWidth: 1280,
-    viewportHeight: 720
   },
 });

@@ -2,24 +2,6 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 let productInfo = {};
 
-// Background steps
-Given("I am logged in as a standard user", () => {
-  cy.visit("/");
-  cy.get('[data-test="username"]').type("standard_user");
-  cy.get('[data-test="password"]').type("secret_sauce");
-  cy.get('[data-test="login-button"]').click();
-});
-
-Given("I am on the Products page", () => {
-  cy.url().should("include", "/inventory.html");
-});
-
-// Navigation steps
-When("I navigate to the shopping cart", () => {
-  cy.get(".shopping_cart_link").click();
-  cy.url().should("include", "/cart.html");
-});
-
 // Empty cart verification
 Then("I should see an empty cart message", () => {
   cy.get(".cart_item").should("not.exist");
@@ -47,6 +29,13 @@ When("I add a product to the cart", () => {
   });
 });
 
+// Add the missing step
+Given("I have added a product to the cart", () => {
+  cy.get(".inventory_item").first().within(() => {
+    cy.get('[data-test^="add-to-cart"]').click();
+  });
+});
+
 // Product information verification
 Then("I should see complete product information", () => {
   cy.get(".cart_item").within(() => {
@@ -66,14 +55,6 @@ Then("the product information should match the product page", () => {
     cy.get(".inventory_item_desc").should("have.text", productInfo.description);
     cy.get(".inventory_item_price").should("have.text", productInfo.price);
   });
-});
-
-// Multiple products verification
-When("I add {string} different products to the cart", (quantity) => {
-  const count = parseInt(quantity);
-  for (let i = 0; i < count; i++) {
-    cy.get('[data-test^="add-to-cart"]').eq(i).click();
-  }
 });
 
 Then("I should see {string} products in the cart", (quantity) => {
