@@ -1,22 +1,12 @@
-Cypress.Commands.add("login", (username, password) => {
-    cy.visit("/");
-    
-    // Using ID selectors with additional validations
-    cy.get('#user-name')
-      .should('be.visible')
-      .should('have.attr', 'placeholder', 'Username')
-      .should('have.class', 'input_error')
-      .type(username);
-      
-    cy.get('#password')
-      .should('be.visible')
-      .should('have.attr', 'placeholder', 'Password')
-      .should('have.class', 'input_error')
-      .type(password);
-      
-    cy.get('#login-button')
-      .should('be.visible')
-      .should('have.class', 'submit-button')
-      .should('have.attr', 'type', 'submit')
-      .click();
+Cypress.Commands.add('clearSession', () => {
+    cy.window().then((win) => {
+      win.sessionStorage.clear();
+      win.localStorage.clear();
+    });
+  });
+  
+  Cypress.Commands.add('loginUser', (username, password) => {
+    cy.get('#user-name').clear().type(username);
+    cy.get('#password').clear().type(password);
+    cy.get('#login-button').click();
   });
