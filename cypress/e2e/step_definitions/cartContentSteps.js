@@ -10,16 +10,6 @@ Given("I am loggd in as a standard user", () => {
   cy.get('[data-test="login-button"]').click();
 });
 
-Given("I am on the Products page", () => {
-  cy.url().should("include", "/inventory.html");
-});
-
-// Navigation steps
-When("I navigate to the shopping cart", () => {
-  cy.get(".shopping_cart_link").click();
-  cy.url().should("include", "/cart.html");
-});
-
 // Empty cart verification
 Then("I should see an empty cart message", () => {
   cy.get(".cart_item").should("not.exist");
@@ -66,14 +56,6 @@ Then("the product information should match the product page", () => {
     cy.get(".inventory_item_desc").should("have.text", productInfo.description);
     cy.get(".inventory_item_price").should("have.text", productInfo.price);
   });
-});
-
-// Multiple products verification
-When("I add {string} different products to the cart", (quantity) => {
-  const count = parseInt(quantity);
-  for (let i = 0; i < count; i++) {
-    cy.get('[data-test^="add-to-cart"]').eq(i).click();
-  }
 });
 
 Then("I should see {string} products in the cart", (quantity) => {

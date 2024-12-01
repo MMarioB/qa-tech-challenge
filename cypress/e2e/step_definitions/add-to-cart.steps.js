@@ -29,24 +29,6 @@ Then('the product button displays {string}', (text) => {
     .should('have.text', text);
 });
 
-// Multiple products steps
-When('the user adds {string} products to cart', (count) => {
-  const numProducts = parseInt(count);
-  for (let i = 0; i < numProducts; i++) {
-    cy.get('[data-test^="add-to-cart"]')
-      .eq(i)
-      .should('be.visible')
-      .click();
-  }
-});
-
-Then('selected products display {string}', (text) => {
-  cy.get('[data-test^="remove"]')
-    .each(($button) => {
-      cy.wrap($button).should('have.text', text);
-    });
-});
-
 // Product Details steps
 When('the user clicks on first inventory item', () => {
   cy.get('[data-test="inventory-item-name"]')
