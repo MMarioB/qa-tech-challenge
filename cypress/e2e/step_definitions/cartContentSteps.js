@@ -3,7 +3,7 @@ import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 let productInfo = {};
 
 // Background steps
-Given("I am logged in as a standard user", () => {
+Given("I am loggd in as a standard user", () => {
   cy.visit("/");
   cy.get('[data-test="username"]').type("standard_user");
   cy.get('[data-test="password"]').type("secret_sauce");

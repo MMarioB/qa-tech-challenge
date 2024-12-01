@@ -44,3 +44,22 @@ Cypress.Commands.add('loginToSwagLabs', () => {
   cy.url().should('include', '/inventory.html');
   cy.get('.title').should('have.text', 'Products');
 });
+
+Cypress.Commands.add('openBurgerMenu', () => {
+  cy.get('.bm-burger-button button', { timeout: 10000 })
+    .should('be.visible')
+    .click();
+
+  // Verify that the menu becomes visible after the click
+  cy.get('.bm-menu')
+    .should('be.visible');
+
+});
+
+Cypress.Commands.add('addItemToCart', (itemName) => {
+  cy.get('.inventory_item')
+    .contains(itemName)
+    .parents('.inventory_item')
+    .find('.btn_inventory')
+    .click();
+});
