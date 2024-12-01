@@ -13,9 +13,9 @@ Cypress.Commands.add('loginUser', (username, password) => {
 
 Cypress.Commands.add('loginAsStandardUser', () => {
   cy.visit('/');
-  cy.get('#user-name').type('standard_user');
-  cy.get('#password').type('secret_sauce');
-  cy.get('#login-button').click();
+  cy.get('[data-test="username"]').type('standard_user');
+  cy.get('[data-test="password"]').type('secret_sauce');
+  cy.get('[data-test="login-button"]').click();
 });
 
 Cypress.Commands.add('loginToSwagLabs', () => {

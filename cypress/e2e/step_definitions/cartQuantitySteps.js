@@ -43,11 +43,6 @@ When("I add {string} different products to the cart", (quantity) => {
   }
 });
 
-// Navigation verification
-When("I click on a product title", () => {
-  cy.get(".inventory_item_name").first().click();
-});
-
 Then("I should be on the Product Details page", () => {
   cy.url().should("include", "/inventory-item.html");
 });
