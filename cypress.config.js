@@ -6,6 +6,8 @@ const { createEsbuildPlugin } = require("@badeball/cypress-cucumber-preprocessor
 module.exports = defineConfig({
   e2e: {
     specPattern: "**/*.feature",
+    baseUrl: 'https://www.saucedemo.com',
+    pageLoadTimeout: 120000,
     async setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
@@ -16,8 +18,5 @@ module.exports = defineConfig({
       
       return config;
     },
-    baseUrl: 'https://www.saucedemo.com',
-    viewportWidth: 1280,
-    viewportHeight: 720
   },
 });
