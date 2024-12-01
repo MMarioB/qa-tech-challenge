@@ -663,6 +663,113 @@ Testing the ability of a standard_user to view product information in both the P
     3. Confirm image positioning
   - **Expected Result**: Images should scale appropriately while maintaining quality
 
+## User Story 9
+As a Swag Labs standard_user, I need to see all the product added to the shopping cart in the Swag Labs ordering platform so that I can to know what I am going to buy
+
+## Acceptance Criterias 9
+Ensure the Swag Labs standard_user are able to:
+1. Log in to Swag Labs
+2. Navigate into the shopping cart
+3. Able to see all the products information what I am going to buy (qty, name, description, price)
+
+# Test Cases
+
+## Shopping Cart Contents Display Functionality
+Testing the ability of a standard_user to view complete product information in the Shopping Cart of the Swag Labs platform.
+
+### Test Scenarios
+
+#### 1. Shopping Cart Access and Display
+**Objective**: Verify access to shopping cart and initial display
+- **Precondition**: User is logged in as standard_user
+- **Test Cases**:
+
+  1.1 Cart Access Verification
+  - **Steps**:
+    1. Log in with standard_user credentials
+    2. Click on shopping cart icon
+    3. Verify navigation to cart page
+  - **Expected Result**: Shopping cart page loads with correct URL
+
+  1.2 Empty Cart Display
+  - **Steps**:
+    1. Access empty shopping cart
+    2. Verify empty cart message
+    3. Check cart layout
+  - **Expected Result**: Empty cart state should be properly displayed
+
+#### 2. Product Information Display
+**Objective**: Verify complete product information display in cart
+- **Test Cases**:
+
+  2.1 Single Product Information
+  - **Steps**:
+    1. Add one product to cart
+    2. Navigate to cart
+    3. Verify product quantity display
+    4. Check product name presence
+    5. Validate product description
+    6. Confirm price display
+  - **Expected Result**: All product details should be correctly displayed
+
+  2.2 Multiple Products Information
+  - **Steps**:
+    1. Add multiple products to cart
+    2. Navigate to cart
+    3. Verify each product's complete information
+    4. Check individual quantities
+  - **Expected Result**: All products should show complete information
+
+#### 3. Information Accuracy
+**Objective**: Verify cart information matches product page
+- **Test Cases**:
+
+  3.1 Product Details Consistency
+  - **Steps**:
+    1. Note product details on product page
+    2. Add product to cart
+    3. Compare details in cart
+    4. Verify name matches
+    5. Confirm description is identical
+    6. Check price consistency
+  - **Expected Result**: Cart information should match product page exactly
+
+#### 4. Quantity Verification
+**Objective**: Verify quantity display and management
+- **Test Cases**:
+
+  4.1 Single Item Quantity
+  - **Steps**:
+    1. Add one unit of a product
+    2. Verify quantity shows as "1"
+    3. Check quantity display format
+  - **Expected Result**: Quantity should be clearly displayed
+
+  4.2 Multiple Items Management
+  - **Steps**:
+    1. Add multiple units of different products
+    2. Verify individual quantity displays
+    3. Check total items count
+  - **Expected Result**: Each product should show correct quantity
+
+#### 5. UI/UX Elements
+**Objective**: Verify cart display across different devices
+- **Test Cases**:
+
+  5.1 Cart Responsiveness
+  - **Steps**:
+    1. View cart on desktop
+    2. Check mobile display
+    3. Verify tablet layout
+  - **Expected Result**: Cart should be readable on all devices
+
+  5.2 Information Layout
+  - **Steps**:
+    1. Verify product image visibility
+    2. Check text alignment
+    3. Validate price formatting
+  - **Expected Result**: Information should be well-organized and readable
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
