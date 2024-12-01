@@ -3,19 +3,29 @@ Feature: Swag Labs User Authentication
   I want to authenticate into the system
   So that I can access the platform
 
-  Scenario Outline: Successful login for different user types
+  @standard_user
+  Scenario: Login with standard user
     Given I am on the login page
-    When I enter username "<username>" and password "<password>"
+    When I login as "standard_user"
     Then I should be logged in successfully
     And I should see the products page
 
-    Examples:
-      | username                | password     |
-      | standard_user          | secret_sauce |
-      | problem_user           | secret_sauce |
-      | performance_glitch_user| secret_sauce |
-
-  Scenario: Failed login for locked out user
+  @problem_user
+  Scenario: Login with problem user
     Given I am on the login page
-    When I enter username "locked_out_user" and password "secret_sauce"
+    When I login as "problem_user"
+    Then I should be logged in successfully
+    And I should see the products page
+
+  @performance_glitch
+  Scenario: Login with performance glitch user
+    Given I am on the login page
+    When I login as "performance_glitch_user"
+    Then I should be logged in successfully
+    And I should see the products page
+
+  @locked_user
+  Scenario: Login with locked out user
+    Given I am on the login page
+    When I login as "locked_out_user"
     Then I should see error message "Epic sadface: Sorry, this user has been locked out."
