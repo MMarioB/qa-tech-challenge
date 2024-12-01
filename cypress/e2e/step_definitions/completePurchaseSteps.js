@@ -1,6 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-// Background steps
 Given("I have products in my cart", () => {
   cy.get('[data-test^="add-to-cart"]').first().click();
   cy.get('[data-test^="add-to-cart"]').eq(1).click();
@@ -49,11 +48,11 @@ Then("the product information should be correct", () => {
 
 Then("the financial summary should be accurate", () => {
   cy.get(".summary_subtotal_label").should("be.visible")
-    .and("contain", "$");
+    .and("contain.text", "$");
   cy.get(".summary_tax_label").should("be.visible")
-    .and("contain", "$");
+    .and("contain.text", "$");
   cy.get(".summary_total_label").should("be.visible")
-    .and("contain", "$");
+    .and("contain.text", "$");
 });
 
 // Completion steps
@@ -73,6 +72,10 @@ Then("the cart should be empty", () => {
 
 // Form validation
 Given("I am on the checkout information page", () => {
+  cy.visit("/");
+  cy.get('[data-test="username"]').type("standard_user");
+  cy.get('[data-test="password"]').type("secret_sauce");
+  cy.get('[data-test="login-button"]').click();
   cy.get(".shopping_cart_link").click();
   cy.get('[data-test="checkout"]').click();
 });
@@ -107,10 +110,40 @@ When("I complete the information form", () => {
   cy.get('[data-test="continue"]').click();
 });
 
+Then("I should see the following for each product:", (dataTable) => {
+  dataTable.hashes().forEach((product) => {
+    cy.get(".cart_item").each(($cartItem) => {
+      cy.wrap($cartItem).within(() => {
+        cy.get(".inventory_item_name").should("contain", product.Name);
+        cy.get(".inventory_item_desc").should("contain", product.Description);
+        cy.get(".inventory_item_price").should("contain", product.Price);
+        cy.get(".cart_quantity").should("contain", product.Quantity);
+      });
+    });
+  });
+});
+
 Then("I should see correct:", (dataTable) => {
-  dataTable.raw().forEach(([label]) => {
-    cy.get(`.summary_${label.toLowerCase()}_label`).should("be.visible")
-      .and("contain", "$");
+  dataTable.raw().forEach(([label, value]) => {
+    switch (label.toLowerCase()) {
+      case "item total":
+        cy.get(".summary_subtotal_label")
+          .should("be.visible")
+          .and("contain.text", value);
+        break;
+      case "tax":
+        cy.get(".summary_tax_label")
+          .should("be.visible")
+          .and("contain.text", value);
+        break;
+      case "total":
+        cy.get(".summary_total_label")
+          .should("be.visible")
+          .and("contain.text", value);
+        break;
+      default:
+        throw new Error(`Unsupported label: ${label}`);
+    }
   });
 });
 

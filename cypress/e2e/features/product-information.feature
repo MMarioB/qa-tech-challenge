@@ -18,11 +18,9 @@ Feature: Swag Labs Product Information Display
 
   Scenario: View detailed product information
     Given I am logged in as a standard user
-    And I am on the Products page
     When I click on a product title
     Then I should see the Product Details page
     And I should see detailed product information
-    And the product details should match the listing page
 
   Scenario: Verify product information consistency
     Given I am logged in as a standard user

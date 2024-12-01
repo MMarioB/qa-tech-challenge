@@ -1,18 +1,5 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
-// Background steps
-Given("I am logged in as a standard user", () => {
-  cy.visit("/");
-  cy.get('[data-test="username"]').type("standard_user");
-  cy.get('[data-test="password"]').type("secret_sauce");
-  cy.get('[data-test="login-button"]').click();
-});
-
-Given("I am on the Products page", () => {
-  cy.url().should("include", "/inventory.html");
-  cy.get(".title").should("have.text", "Products");
-});
-
 // Cart state verification
 Then("the shopping cart should be empty", () => {
   cy.get(".shopping_cart_link").should("exist");
@@ -28,12 +15,12 @@ When("I add one product to the cart", () => {
   cy.get('[data-test="add-to-cart-sauce-labs-backpack"]').first().click();
 });
 
-Then("the cart badge should show {string}", (quantity) => {
-  cy.get(".shopping_cart_badge").should("have.text", quantity);
-});
-
-Then("the cart badge should be visible", () => {
-  cy.get(".shopping_cart_badge").should("be.visible");
+// Generic method for adding multiple products
+When("I add {string} products to the cart", (quantity) => {
+  const count = parseInt(quantity);
+  for (let i = 0; i < count; i++) {
+    cy.get('[data-test^="add-to-cart"]').eq(i).click();
+  }
 });
 
 When("I add {string} different products to the cart", (quantity) => {
@@ -43,9 +30,12 @@ When("I add {string} different products to the cart", (quantity) => {
   }
 });
 
-// Navigation verification
-When("I click on a product title", () => {
-  cy.get(".inventory_item_name").first().click();
+Then("the cart badge should show {string}", (quantity) => {
+  cy.get(".shopping_cart_badge").should("have.text", quantity);
+});
+
+Then("the cart badge should be visible", () => {
+  cy.get(".shopping_cart_badge").should("be.visible");
 });
 
 Then("I should be on the Product Details page", () => {
@@ -54,10 +44,6 @@ Then("I should be on the Product Details page", () => {
 
 Then("the cart badge should still show {string}", (quantity) => {
   cy.get(".shopping_cart_badge").should("have.text", quantity);
-});
-
-When("I navigate to the shopping cart", () => {
-  cy.get(".shopping_cart_link").click();
 });
 
 Then("I should see {int} items in the cart", (quantity) => {
