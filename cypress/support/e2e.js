@@ -1,12 +1,5 @@
 // Import custom commands
-import './commands/loginCommands';
-import './commands/uiCommands';
-import './commands/productDetailsCommands';
-import './commands/addToCartCommands';
-import './commands/productSortingCommands';
-import './commands/appResetCommands';
-import './commands/cartContentCommands';
-import './commands/completePurchaseCommands';
+import './commands/commands';
 
 // Global configurations and setup
 beforeEach(() => {
