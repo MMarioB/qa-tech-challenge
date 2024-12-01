@@ -1,52 +1,58 @@
 const { Given, When, Then } = require("@badeball/cypress-cucumber-preprocessor");
 
-const USERS = {
-  standard_user: 'secret_sauce',
-  problem_user: 'secret_sauce',
-  performance_glitch_user: 'secret_sauce',
-  locked_out_user: 'secret_sauce'
-};
-
-beforeEach(() => {
-  cy.clearSession();
+Given("I clear session and cookies", () => {
+  cy.window().then((win) => {
+    win.sessionStorage.clear();
+    win.localStorage.clear();
+  });
+  cy.clearCookies();
 });
 
-Given("I am on the login page", () => {
-  cy.visit("/", { timeout: 120000 }); // Increased timeout for performance_glitch_user
+When("I visit the login page", () => {
+  cy.visit("/", { timeout: 90000 });
   cy.get('#user-name').should('be.visible');
-  cy.get('#password').should('be.visible');
 });
 
-When("I login as {string}", (userType) => {
-  // Special handling for performance_glitch_user
-  if (userType === 'performance_glitch_user') {
-    cy.get('#user-name', { timeout: 30000 }).type(userType, { delay: 100 });
-    cy.get('#password', { timeout: 30000 }).type(USERS[userType], { delay: 100 });
-    cy.get('#login-button').click();
-    // Wait longer for response with performance_glitch_user
-    cy.get('.inventory_container', { timeout: 90000 }).should('exist');
-  } else {
-    cy.get('#user-name').type(userType);
-    cy.get('#password').type(USERS[userType]);
-    cy.get('#login-button').click();
-  }
+When("I login with credentials:", (datatable) => {
+  const { username, password } = datatable.hashes()[0];
+  cy.visit("/", { timeout: 90000 });
+  cy.get('#user-name').should('be.visible').type(username);
+  cy.get('#password').should('be.visible').type(password);
+  cy.get('#login-button').click();
 });
 
-Then("I should be logged in successfully", () => {
-  // Different assertions for different user types
-  cy.url().should("include", "/inventory.html");
-  cy.get('.inventory_container', { timeout: 30000 }).should('exist');
+When("I type username {string} slowly", (username) => {
+  cy.get('#user-name').should('be.visible').type(username, { delay: 200 });
+});
+
+When("I type password {string} slowly", (password) => {
+  cy.get('#password').should('be.visible').type(password, { delay: 200 });
+});
+
+When("I wait {string} milliseconds", (ms) => {
+  cy.wait(parseInt(ms));
+});
+
+When("I click login button", () => {
+  cy.get('#login-button').click();
 });
 
 Then("I should see the products page", () => {
-  cy.get(".title", { timeout: 30000 })
-    .should("be.visible")
-    .and("have.text", "Products");
+  cy.get('.title', { timeout: 90000 })
+    .should('be.visible')
+    .and('have.text', 'Products');
+});
+
+Then("I wait for products page to load", () => {
+  cy.get('.title', { timeout: 90000 })
+    .should('be.visible')
+    .and('have.text', 'Products');
+  cy.get('.inventory_item', { timeout: 90000 })
+    .should('have.length.at.least', 1);
 });
 
 Then("I should see error message {string}", (message) => {
-  // Specific handling for locked_out_user
   cy.get('[data-test="error"]', { timeout: 30000 })
-    .should("be.visible")
-    .and("have.text", message);
+    .should('be.visible')
+    .and('have.text', message);
 });
