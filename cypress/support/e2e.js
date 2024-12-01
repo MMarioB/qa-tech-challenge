@@ -6,6 +6,7 @@ import './commands/addToCartCommands';
 import './commands/productSortingCommands';
 import './commands/appResetCommands';
 import './commands/cartContentCommands';
+import './commands/completePurchaseCommands';
 
 // Global configurations and setup
 beforeEach(() => {
