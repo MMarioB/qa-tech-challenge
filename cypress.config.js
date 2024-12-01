@@ -7,22 +7,29 @@ module.exports = defineConfig({
   e2e: {
     specPattern: "**/*.feature",
     baseUrl: 'https://www.saucedemo.com',
-    pageLoadTimeout: 120000,
-    defaultCommandTimeout: 30000,
-    numTestsKeptInMemory: 0,
+    pageLoadTimeout: 90000,
+    defaultCommandTimeout: 90000,
     supportFile: 'cypress/support/e2e.js',
+    chromeWebSecurity: false,
     retries: {
       runMode: 2,
       openMode: 0
     },
-    async setupNodeEvents(on, config) {
+    setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
       });
       
       on("file:preprocessor", bundler);
-      await addCucumberPreprocessorPlugin(on, config);
+      addCucumberPreprocessorPlugin(on, config);
       
+      on('task', {
+        log(message) {
+          console.log(message);
+          return null;
+        }
+      });
+
       return config;
     },
   },
