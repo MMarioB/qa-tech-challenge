@@ -770,6 +770,104 @@ Testing the ability of a standard_user to view complete product information in t
     3. Validate price formatting
   - **Expected Result**: Information should be well-organized and readable
 
+## User Story 10
+As a Swag Labs standard_user, I need to buy all the product added to the shopping cart in the Swag Labs ordering platform
+
+## Acceptance Criterias 10
+Ensure the Swag Labs standard_user are able to:
+1. Log in to Swag Labs
+2. Navigate into the shopping cart
+3. Able to Checkout
+4. Able to complete a form with my personal data
+5. Able to see an overview about my order (qty, name, description, unit price, payment information, shipping information, item total price, tax, total price)
+6. Able to see a confirmation page
+
+# Test Cases
+
+## Complete Purchase Workflow Functionality
+Testing the ability of a standard_user to complete the purchase process for products in the shopping cart.
+
+### Test Scenarios
+
+#### 1. Checkout Navigation
+**Objective**: Verify navigation through checkout process
+- **Precondition**: User is logged in with products in cart
+- **Test Cases**:
+
+  1.1 Initial Checkout Access
+  - **Steps**:
+    1. Navigate to shopping cart
+    2. Click Checkout button
+    3. Verify navigation to information form
+  - **Expected Result**: User reaches checkout information page
+
+  1.2 Form Navigation
+  - **Steps**:
+    1. Fill complete information form
+    2. Click Continue button
+    3. Verify navigation to overview page
+  - **Expected Result**: User reaches checkout overview page
+
+#### 2. Personal Information Form
+**Objective**: Verify form functionality and validation
+- **Test Cases**:
+
+  2.1 Complete Valid Form
+  - **Steps**:
+    1. Enter valid first name
+    2. Enter valid last name
+    3. Enter valid postal code
+    4. Submit form
+  - **Expected Result**: Form submits successfully
+
+  2.2 Form Validation
+  - **Steps**:
+    1. Submit empty form
+    2. Submit with missing first name
+    3. Submit with missing last name
+    4. Submit with missing postal code
+  - **Expected Result**: Appropriate error messages display
+
+#### 3. Order Overview Verification
+**Objective**: Verify order details accuracy
+- **Test Cases**:
+
+  3.1 Product Information
+  - **Steps**:
+    1. Verify each product's quantity
+    2. Check product names
+    3. Validate descriptions
+    4. Confirm unit prices
+  - **Expected Result**: All product information matches cart
+
+  3.2 Financial Summary
+  - **Steps**:
+    1. Verify item total calculation
+    2. Check tax amount
+    3. Validate total sum
+    4. Confirm payment information
+    5. Verify shipping information
+  - **Expected Result**: All calculations and information are correct
+
+#### 4. Order Completion
+**Objective**: Verify successful order completion
+- **Test Cases**:
+
+  4.1 Confirmation Page
+  - **Steps**:
+    1. Complete purchase
+    2. Verify navigation to confirmation
+    3. Check confirmation message
+    4. Validate order summary
+  - **Expected Result**: Order completes with confirmation
+
+  4.2 Post-Purchase State
+  - **Steps**:
+    1. Complete purchase
+    2. Check cart state
+    3. Verify navigation options
+  - **Expected Result**: Cart empties and proper navigation options show
+
 # How to Run the Tests
 Section where the necessary instructions to run the tests will be added
 
