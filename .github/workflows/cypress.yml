@@ -27,9 +27,14 @@ jobs:
       id: cypress
       run: |
         yarn cypress:run
-        echo "::set-output name=totalTests::$(yarn run cypress:results | jq '.totalTests')"
-        echo "::set-output name=passedTests::$(yarn run cypress:results | jq '.passedTests')"
-        echo "::set-output name=failedTests::$(yarn run cypress:results | jq '.failedTests')"
+        CYPRESS_RESULTS=$(yarn cypress:run --reporter json --reporter-options "mochaFile=./cypress/results/results-[hash].json")
+        echo "Cypress test results: $CYPRESS_RESULTS"
+        TOTAL_TESTS=$(jq '.totalTests' ./cypress/results/results-*.json)
+        PASSED_TESTS=$(jq '.passes' ./cypress/results/results-*.json)
+        FAILED_TESTS=$(jq '.failures' ./cypress/results/results-*.json)
+        echo "totalTests=$TOTAL_TESTS" >> $GITHUB_OUTPUT
+        echo "passedTests=$PASSED_TESTS" >> $GITHUB_OUTPUT
+        echo "failedTests=$FAILED_TESTS" >> $GITHUB_OUTPUT
       
     - name: Test Results Summary
       run: |
