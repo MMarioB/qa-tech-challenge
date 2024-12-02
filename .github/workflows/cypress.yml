@@ -27,11 +27,10 @@ jobs:
       id: cypress
       run: |
         yarn cypress:run
-        CYPRESS_RESULTS=$(yarn cypress:run --reporter json --reporter-options "mochaFile=./cypress/results/results-[hash].json")
-        echo "Cypress test results: $CYPRESS_RESULTS"
-        TOTAL_TESTS=$(jq '.totalTests' ./cypress/results/results-*.json)
-        PASSED_TESTS=$(jq '.passes' ./cypress/results/results-*.json)
-        FAILED_TESTS=$(jq '.failures' ./cypress/results/results-*.json)
+        TOTAL_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Tests:' | sed 's/.*Tests: \([0-9]*\).*/\1/')
+        PASSED_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Passed:' | sed 's/.*Passed: \([0-9]*\).*/\1/')
+        FAILED_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Failed:' | sed 's/.*Failed: \([0-9]*\).*/\1/')
+        
         echo "totalTests=$TOTAL_TESTS" >> $GITHUB_OUTPUT
         echo "passedTests=$PASSED_TESTS" >> $GITHUB_OUTPUT
         echo "failedTests=$FAILED_TESTS" >> $GITHUB_OUTPUT
