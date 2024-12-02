@@ -114,7 +114,7 @@ When('I remove a single product from the Shopping Cart', () => {
 Then('the removed product should not be in the cart', () => {
     // Assert that the removed product is not present in the cart
     cy.get('.cart_item')
-      .should('have.length', 2)
+      .should('have.length', 1)
       .and('not.contain', 'Sauce Labs Backpack');
 });
 

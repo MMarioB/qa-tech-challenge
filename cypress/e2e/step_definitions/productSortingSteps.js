@@ -1,7 +1,7 @@
 const { Given, When, Then } = require('@badeball/cypress-cucumber-preprocessor');
 
 // Background steps
-Given('the user opens Swag Labs', () => {
+Given('the user opens sauce demo', () => {
   cy.visit('/');
   cy.get('#user-name').should('be.visible');
 });

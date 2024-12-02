@@ -4,8 +4,8 @@ Feature: Add Products to Cart
   So that I can manage my purchase items
 
   Background:
-    Given the user opens Swag Labs
-    And the user performs login
+    Given the user open the saucedemo
+    And the user do the login
 
   Scenario: Add single product to cart from Products page
     When the user adds the first product to cart
@@ -13,9 +13,9 @@ Feature: Add Products to Cart
     And the product button displays "Remove"
 
   Scenario: Add multiple products to cart
-    When the user adds "3" products to cart
+    When the user is adding "3" products to cart
     Then the cart badge displays "3"
-    And selected products display "Remove"
+    And selected products to display the "Remove"
 
   Scenario: Add product from Product Details page
     When the user clicks on first inventory item
