@@ -25,7 +25,7 @@ jobs:
     - name: Run Cypress tests
       run: yarn cypress:run
       
-    - uses: actions/upload-artifact@v2
+    - uses: actions/upload-artifact@v3
       if: failure()
       with:
         name: cypress-screenshots
