@@ -24,7 +24,18 @@ jobs:
       run: yarn install
       
     - name: Run Cypress tests
-      run: yarn cypress:run
+      id: cypress
+      run: |
+        yarn cypress:run
+        echo "::set-output name=totalTests::$(yarn run cypress:results | jq '.totalTests')"
+        echo "::set-output name=passedTests::$(yarn run cypress:results | jq '.passedTests')"
+        echo "::set-output name=failedTests::$(yarn run cypress:results | jq '.failedTests')"
+      
+    - name: Test Results Summary
+      run: |
+        echo "Total Tests: ${{ steps.cypress.outputs.totalTests }}"
+        echo "Passed Tests: ${{ steps.cypress.outputs.passedTests }}"
+        echo "Failed Tests: ${{ steps.cypress.outputs.failedTests }}"
       
     - uses: actions/upload-artifact@v3
       if: failure()
