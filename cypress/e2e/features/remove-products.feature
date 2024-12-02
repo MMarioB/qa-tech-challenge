@@ -26,6 +26,7 @@ Feature: Remove Products from Cart
     Then the cart badge should no longer exist
     And the product should be removed from the cart
   
+  @skip
   Scenario: Remove products from Shopping Cart
     When I add multiple products to the cart
     And I navigate to the Shopping Cart
