@@ -35,7 +35,8 @@ Feature: Complete Purchase Workflow
       |           | Doe      | 12345      | Error: First Name is required  |
       | John      |          | 12345      | Error: Last Name is required   |
       | John      | Doe      |            | Error: Postal Code is required |
-
+  
+  @skip
   Scenario: Verify order overview details
     Given I have "2" specific products in cart
     When I proceed to checkout

@@ -47,7 +47,7 @@ When('the user is adding {string} products to cart', productCount => {
   }
 });
 Then('selected products to display the {string}', (buttonText) => {
-  cy.get('[data-test^="add-to-cart"], [data-test^="remove"]')
+  cy.get('[data-test^="remove"]')
     .should('have.length', 3)
     .each($btn => cy.wrap($btn).should('have.text', buttonText));
 });
