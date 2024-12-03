@@ -51,7 +51,7 @@ jobs:
           name: cypress-screenshots
           path: cypress/screenshots
       
-       name: Upload Cypress Output
+      - name: Upload Cypress Output
         uses: actions/upload-artifact@v3
         if: always()
         with:
