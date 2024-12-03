@@ -24,53 +24,25 @@ jobs:
       - name: Run Cypress tests
         id: cypress
         run: |
-          # Run tests and capture the output
-          TEST_OUTPUT=$(yarn cypress:run) || true
-          echo "$TEST_OUTPUT" > test_output.txt
+          # Run tests and store output
+          yarn cypress:run 2>&1 | tee cypress-output.txt
           
-          # Parse scenarios results
-          TOTAL_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* scenario' | awk '{print $1}')
-          PASSED_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* passed' | awk '{print $1}')
-          FAILED_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* failed' | awk '{print $1}')
+          # Store exit code
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
           
-          # Parse individual test steps
-          TOTAL_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* steps' | awk '{print $1}')
-          PASSED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* passed' | grep -v 'scenario' | awk '{print $1}')
-          FAILED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* failed' | grep -v 'scenario' | awk '{print $1}')
-          SKIPPED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* skipped' | awk '{print $1}')
-          
-          # If any values are empty, set them to 0
-          TOTAL_SCENARIOS=${TOTAL_SCENARIOS:-0}
-          PASSED_SCENARIOS=${PASSED_SCENARIOS:-0}
-          FAILED_SCENARIOS=${FAILED_SCENARIOS:-0}
-          TOTAL_STEPS=${TOTAL_STEPS:-0}
-          PASSED_STEPS=${PASSED_STEPS:-0}
-          FAILED_STEPS=${FAILED_STEPS:-0}
-          SKIPPED_STEPS=${SKIPPED_STEPS:-0}
-          
-          # Set outputs
-          echo "total_scenarios=$TOTAL_SCENARIOS" >> $GITHUB_OUTPUT
-          echo "passed_scenarios=$PASSED_SCENARIOS" >> $GITHUB_OUTPUT
-          echo "failed_scenarios=$FAILED_SCENARIOS" >> $GITHUB_OUTPUT
-          echo "total_steps=$TOTAL_STEPS" >> $GITHUB_OUTPUT
-          echo "passed_steps=$PASSED_STEPS" >> $GITHUB_OUTPUT
-          echo "failed_steps=$FAILED_STEPS" >> $GITHUB_OUTPUT
-          echo "skipped_steps=$SKIPPED_STEPS" >> $GITHUB_OUTPUT
+          # Count tests results
+          echo "total_tests=$(cat cypress-output.txt | grep -o 'Running:.*' | wc -l)" >> $GITHUB_OUTPUT
+          echo "passed_tests=$(cat cypress-output.txt | grep -o '✓.*' | wc -l)" >> $GITHUB_OUTPUT
+          echo "failed_tests=$(cat cypress-output.txt | grep -o '✖.*' | wc -l)" >> $GITHUB_OUTPUT
           
       - name: Test Results Summary
+        if: always()
         run: |
           echo "📊 Test Results Summary"
           echo "------------------------"
-          echo "📚 Scenarios:"
-          echo "✨ Total Scenarios: ${{ steps.cypress.outputs.total_scenarios }}"
-          echo "✅ Passed Scenarios: ${{ steps.cypress.outputs.passed_scenarios }}"
-          echo "❌ Failed Scenarios: ${{ steps.cypress.outputs.failed_scenarios }}"
-          echo ""
-          echo "🔍 Individual Test Steps:"
-          echo "✨ Total Steps: ${{ steps.cypress.outputs.total_steps }}"
-          echo "✅ Passed Steps: ${{ steps.cypress.outputs.passed_steps }}"
-          echo "❌ Failed Steps: ${{ steps.cypress.outputs.failed_steps }}"
-          echo "⏩ Skipped Steps: ${{ steps.cypress.outputs.skipped_steps }}"
+          echo "✨ Total Tests: ${{ steps.cypress.outputs.total_tests }}"
+          echo "✅ Passed Tests: ${{ steps.cypress.outputs.passed_tests }}"
+          echo "❌ Failed Tests: ${{ steps.cypress.outputs.failed_tests }}"
           
       - name: Upload Screenshots
         uses: actions/upload-artifact@v3
@@ -78,10 +50,10 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-          
-      - name: Upload Test Output
+      
+       name: Upload Cypress Output
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: test-output
-          path: test_output.txt
+          name: cypress-output
+          path: cypress-output.txt
