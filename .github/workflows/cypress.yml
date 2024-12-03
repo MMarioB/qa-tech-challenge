@@ -31,7 +31,7 @@ jobs:
           echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
           
           # Count tests results
-          echo "total_tests=$(cat cypress-output.txt | grep -o 'Running:.*' | wc -l)" >> $GITHUB_OUTPUT
+          echo "total_scenarios=$(cat cypress-output.txt | grep -o 'Running:.*' | wc -l)" >> $GITHUB_OUTPUT
           echo "passed_tests=$(cat cypress-output.txt | grep -o '✓.*' | wc -l)" >> $GITHUB_OUTPUT
           echo "failed_tests=$(cat cypress-output.txt | grep -o '✖.*' | wc -l)" >> $GITHUB_OUTPUT
           
@@ -40,7 +40,7 @@ jobs:
         run: |
           echo "📊 Test Results Summary"
           echo "------------------------"
-          echo "✨ Total Tests: ${{ steps.cypress.outputs.total_tests }}"
+          echo "✨ Total Scenarios: ${{ steps.cypress.outputs.total_scenarios }}"
           echo "✅ Passed Tests: ${{ steps.cypress.outputs.passed_tests }}"
           echo "❌ Failed Tests: ${{ steps.cypress.outputs.failed_tests }}"
           
