@@ -24,29 +24,53 @@ jobs:
       - name: Run Cypress tests
         id: cypress
         run: |
-          # Create reports directory
-          mkdir -p cypress/reports
+          # Run tests and capture the output
+          TEST_OUTPUT=$(yarn cypress:run) || true
+          echo "$TEST_OUTPUT" > test_output.txt
           
-          # Run tests with both cucumber and mochawesome reporters
-          yarn cypress:run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json || true
+          # Parse scenarios results
+          TOTAL_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* scenario' | awk '{print $1}')
+          PASSED_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* passed' | awk '{print $1}')
+          FAILED_SCENARIOS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* failed' | awk '{print $1}')
           
-          # Extract test counts from the mochawesome report
-          TOTAL_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"tests":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
-          PASSED_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"passes":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
-          FAILED_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"failures":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
+          # Parse individual test steps
+          TOTAL_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* steps' | awk '{print $1}')
+          PASSED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* passed' | grep -v 'scenario' | awk '{print $1}')
+          FAILED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* failed' | grep -v 'scenario' | awk '{print $1}')
+          SKIPPED_STEPS=$(echo "$TEST_OUTPUT" | grep -o '[0-9]* skipped' | awk '{print $1}')
+          
+          # If any values are empty, set them to 0
+          TOTAL_SCENARIOS=${TOTAL_SCENARIOS:-0}
+          PASSED_SCENARIOS=${PASSED_SCENARIOS:-0}
+          FAILED_SCENARIOS=${FAILED_SCENARIOS:-0}
+          TOTAL_STEPS=${TOTAL_STEPS:-0}
+          PASSED_STEPS=${PASSED_STEPS:-0}
+          FAILED_STEPS=${FAILED_STEPS:-0}
+          SKIPPED_STEPS=${SKIPPED_STEPS:-0}
           
           # Set outputs
-          echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
-          echo "passed=$PASSED_TESTS" >> $GITHUB_OUTPUT
-          echo "failed=$FAILED_TESTS" >> $GITHUB_OUTPUT
+          echo "total_scenarios=$TOTAL_SCENARIOS" >> $GITHUB_OUTPUT
+          echo "passed_scenarios=$PASSED_SCENARIOS" >> $GITHUB_OUTPUT
+          echo "failed_scenarios=$FAILED_SCENARIOS" >> $GITHUB_OUTPUT
+          echo "total_steps=$TOTAL_STEPS" >> $GITHUB_OUTPUT
+          echo "passed_steps=$PASSED_STEPS" >> $GITHUB_OUTPUT
+          echo "failed_steps=$FAILED_STEPS" >> $GITHUB_OUTPUT
+          echo "skipped_steps=$SKIPPED_STEPS" >> $GITHUB_OUTPUT
           
       - name: Test Results Summary
         run: |
           echo "📊 Test Results Summary"
           echo "------------------------"
-          echo "✨ Total Tests: ${{ steps.cypress.outputs.total }}"
-          echo "✅ Passed Tests: ${{ steps.cypress.outputs.passed }}"
-          echo "❌ Failed Tests: ${{ steps.cypress.outputs.failed }}"
+          echo "📚 Scenarios:"
+          echo "✨ Total Scenarios: ${{ steps.cypress.outputs.total_scenarios }}"
+          echo "✅ Passed Scenarios: ${{ steps.cypress.outputs.passed_scenarios }}"
+          echo "❌ Failed Scenarios: ${{ steps.cypress.outputs.failed_scenarios }}"
+          echo ""
+          echo "🔍 Individual Test Steps:"
+          echo "✨ Total Steps: ${{ steps.cypress.outputs.total_steps }}"
+          echo "✅ Passed Steps: ${{ steps.cypress.outputs.passed_steps }}"
+          echo "❌ Failed Steps: ${{ steps.cypress.outputs.failed_steps }}"
+          echo "⏩ Skipped Steps: ${{ steps.cypress.outputs.skipped_steps }}"
           
       - name: Upload Screenshots
         uses: actions/upload-artifact@v3
@@ -54,10 +78,10 @@ jobs:
         with:
           name: cypress-screenshots
           path: cypress/screenshots
-      
-      - name: Upload Test Reports
+          
+      - name: Upload Test Output
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: test-reports
-          path: cypress/reports
+          name: test-output
+          path: test_output.txt
