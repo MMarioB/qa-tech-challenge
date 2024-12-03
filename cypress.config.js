@@ -15,6 +15,14 @@ module.exports = defineConfig({
       runMode: 2,
       openMode: 0
     },
+    
+    // Screenshots and videos configuration
+    screenshotOnRunFailure: true,
+    screenshotsFolder: 'cypress/screenshots',
+    videosFolder: 'cypress/videos',
+    video: true,
+    trashAssetsBeforeRuns: true,
+
     setupNodeEvents(on, config) {
       const bundler = createBundler({
         plugins: [createEsbuildPlugin(config)],
@@ -33,4 +41,26 @@ module.exports = defineConfig({
       return config;
     },
   },
+
+  // Mochawesome reporter configuration
+  reporter: 'mochawesome',
+  reporterOptions: {
+    reportDir: 'cypress/reports',
+    overwrite: false,
+    html: true,
+    json: true,
+    charts: true,
+    reportPageTitle: 'Cypress Cucumber Test Results',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+    code: false,
+    autoOpen: false,
+    reportFilename: 'mochawesome-[datetime]',
+    timestamp: true
+  },
+
+  // Viewport configuration
+  viewportWidth: 1280,
+  viewportHeight: 720
 });

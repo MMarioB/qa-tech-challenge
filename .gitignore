@@ -4,6 +4,7 @@ node_modules/
 # Cypress specific
 cypress/screenshots/
 cypress/videos/
+cypress/reports
 
 # Logs
 *.log
@@ -20,3 +21,7 @@ cypress/videos/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+#sonar
+.scannerwork
+coverage

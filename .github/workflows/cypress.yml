@@ -8,41 +8,56 @@ on:
     branches: [ main ]
 
 jobs:
-
   cypress-run:
     runs-on: ubuntu-latest
-    
     steps:
-    - uses: actions/checkout@v2
-    
-    - name: Use Node.js
-      uses: actions/setup-node@v2
-      with:
-        node-version: '22'
+      - uses: actions/checkout@v2
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22'
+          
+      - name: Install dependencies
+        run: yarn install
         
-    - name: Install dependencies
-      run: yarn install
+      - name: Run Cypress tests
+        id: cypress
+        run: |
+          # Create reports directory
+          mkdir -p cypress/reports
+          
+          # Run tests with both cucumber and mochawesome reporters
+          yarn cypress:run --reporter cypress-multi-reporters --reporter-options configFile=reporter-config.json || true
+          
+          # Extract test counts from the mochawesome report
+          TOTAL_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"tests":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
+          PASSED_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"passes":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
+          FAILED_TESTS=$(find cypress/reports -name "*.json" -exec cat {} \; | grep -o '"failures":[0-9]*' | awk -F':' '{sum += $2} END {print sum}')
+          
+          # Set outputs
+          echo "total=$TOTAL_TESTS" >> $GITHUB_OUTPUT
+          echo "passed=$PASSED_TESTS" >> $GITHUB_OUTPUT
+          echo "failed=$FAILED_TESTS" >> $GITHUB_OUTPUT
+          
+      - name: Test Results Summary
+        run: |
+          echo "📊 Test Results Summary"
+          echo "------------------------"
+          echo "✨ Total Tests: ${{ steps.cypress.outputs.total }}"
+          echo "✅ Passed Tests: ${{ steps.cypress.outputs.passed }}"
+          echo "❌ Failed Tests: ${{ steps.cypress.outputs.failed }}"
+          
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
       
-    - name: Run Cypress tests
-      id: cypress
-      run: |
-        yarn cypress:run
-        TOTAL_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Tests:' | sed 's/.*Tests: \([0-9]*\).*/\1/')
-        PASSED_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Passed:' | sed 's/.*Passed: \([0-9]*\).*/\1/')
-        FAILED_TESTS=$(yarn test -- --reporter-options "reporterEnabled=spec,junit" | grep 'Failed:' | sed 's/.*Failed: \([0-9]*\).*/\1/')
-        
-        echo "totalTests=$TOTAL_TESTS" >> $GITHUB_OUTPUT
-        echo "passedTests=$PASSED_TESTS" >> $GITHUB_OUTPUT
-        echo "failedTests=$FAILED_TESTS" >> $GITHUB_OUTPUT
-      
-    - name: Test Results Summary
-      run: |
-        echo "Total Tests: ${{ steps.cypress.outputs.totalTests }}"
-        echo "Passed Tests: ${{ steps.cypress.outputs.passedTests }}"
-        echo "Failed Tests: ${{ steps.cypress.outputs.failedTests }}"
-      
-    - uses: actions/upload-artifact@v3
-      if: failure()
-      with:
-        name: cypress-screenshots
-        path: cypress/screenshots
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: test-reports
+          path: cypress/reports
