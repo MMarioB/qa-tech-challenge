@@ -1,7 +1,6 @@
-name: Sonar Analysis
+name: Build
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -25,11 +24,22 @@ jobs:
       - name: Install dependencies
         run: yarn install
         
-      - name: Run tests with coverage
-        run: yarn cypress:sonar
+      - name: Run Cypress tests
+        run: yarn cypress:run
         
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        with:
+          # Additional arguments to the sonarcloud scanner
+          args: >
+            -Dsonar.projectKey=MMarioB_qa-tech-challenge
+            -Dsonar.organization=mmariob
+            -Dsonar.sources=.
+            -Dsonar.tests=cypress
+            -Dsonar.test.inclusions=**/*.spec.js,**/*.cy.js,**/*.feature
+            -Dsonar.exclusions=node_modules/**,cypress/videos/**,cypress/screenshots/**,cypress/downloads/**,**/*.spec.js,**/*.cy.js,**/*.feature
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+            -Dsonar.sourceEncoding=UTF-8
